@@ -1,0 +1,58 @@
+{% include 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class=" text-center">
+        <h1 class="fw-bold">List of doctors</h1>
+        <h4 class="text-muted">{{ treatment.treatmentname }}</h4>
+    </div>
+
+    {% if doctors %}
+
+    <div class="row">
+        {% for doctor in doctors %}
+
+        <div class="col-12 mb-4">
+
+            <div class="d-flex align-items-center  p-4 shadow-sm border rounded">
+
+                <div class="me-5">
+                    <!-- <img src="{% static 'images/user.png' %}" class="rounded-circle" width="150" height="150"> -->
+                    {% if doctor.profile_pic %}
+                        <img src="{{ doctor.profile_pic.url }}" class="rounded-circle" width="100" >
+                        {% else %}
+                        <img src="{% static 'images/user.png' %}" class="rounded-circle" width="80" height="80">
+                        {% endif %}
+                </div>
+
+                <div class=" flex-grow-1 ms-4">
+                    <h5 class="fw-bold mb-1">{{ doctor.name }}</h5>
+                    <p class="text-muted mb-0">{{ doctor.specialized }}</p>
+                </div>
+
+                <div>
+                    <a href="{% url 'appointmentform' doctor.id %}" class="btn btn-outline-dark px-4">
+                        Book Appointment
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+    </div>
+    {% else %}
+
+    <div class="alert alert-danger text-center">
+        No doctors available
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

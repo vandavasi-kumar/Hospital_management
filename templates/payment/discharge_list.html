@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+  <div class="text-center mb-3">
+    <h2>📋 Discharge Records</h2>
+  </div>
+
+  <div class="card shadow p-3">
+
+    <table class="table table-hover table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Patient</th>
+          <th>Doctor</th>
+          <th>Room</th>
+          <th>Total Days</th>
+          <th>Total Bill</th>
+          <th>View</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for bill in bills %}
+        <tr>
+          <td>{{ bill.id }}</td>
+          <td>{{ bill.patient_name }}</td>
+          <td>{{ bill.doctor }}</td>
+          <td>{{ bill.get_room_type_display }}</td>
+          <td>{{ bill.total_days }}</td>
+          <td>₹{{ bill.total_bill }}</td>
+          <td>
+            <a href="{% url 'final_bill' bill.id %}" class="btn btn-sm btn-primary">
+              View
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+{% endblock %}

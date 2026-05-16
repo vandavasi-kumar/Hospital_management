@@ -1,0 +1,23 @@
+{% include 'base.html' %} {% load static %} {% block content %}
+
+<div class="container mt-5">
+  <div class="text-center">
+    <h1 class="fw-bold">Lab Technition Registeration</h1>
+    <br />
+  </div>
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Errors:</strong>
+        {{ form.errors }}
+    </div>
+{% endif %}
+  <div class="card shadow-sm p-4">
+    <form method="POST">
+      {% csrf_token %} {{form.as_p}}
+
+      <input type="submit" class="btn btn-success" value="REGISTER" />
+    </form>
+  </div>
+</div>
+
+{% endblock %}

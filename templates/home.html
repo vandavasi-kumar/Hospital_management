@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="container mt-4">
+  {% if labtech %}
+  <h4 class="text-primary text-center mb-2">
+    <i class="bi bi-person-fill me-2"></i>Welcome, {{ request.user.username }}
+  </h4>
+
+  {% else %}
+
+  <h4 class="text-primary mb-0 text-center">
+    <i class="bi bi-person-fill me-2"></i> Welcome, {{ request.user.username }}
+  </h4>
+
+  {% endif %}
+  <br />
+  <div class="jumbotron home-jumbotron text-center text-white">
+    <h1 class="display-4">HTK HOSPITALS</h1>
+    <p class="lead">Your Health, Our Priority</p>
+
+    <hr class="my-4" />
+
+    <p class="hero-address">
+      <i class="bi bi-geo-alt-fill"></i>
+      Door No. 18-3-112, Gandhi Road Near RTC Bus Stand <br>
+      Chittoor, Andhra Pradesh - 517001, India
+    </p>
+
+
+  </div>
+  <br />
+  {% if labtech %}
+  <div class="d-flex justify-content-center gap-3 mt-3 flex-wrap">
+    <a href="{% url 'all_tests' %}" class="btn btn-success btn-lg">
+      <i class="bi bi-flask"></i> All Tests
+    </a>
+
+    <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">
+      <i class="bi bi-bar-chart"></i> Dashboard
+    </a>
+
+    <a href="{% url 'discharge' %}" class="btn btn-danger btn-lg">
+      <i class="bi bi-hospital"></i> Discharge
+    </a>
+
+    <a href="{% url 'discharge_list' %}" class="btn btn-secondary btn-lg">
+      <i class="bi bi-card-checklist"></i> Discharge List
+    </a>
+  </div>
+
+  {% else %}
+  <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+
+    <a href="{% url 'alldoctors' %}" class="btn btn-primary btn-lg">
+      <i class="bi bi-person-badge-fill me-2"></i>
+      Find Doctors
+    </a>
+
+    <a href="{% url 'treatments' %}" class="btn btn-success btn-lg">
+      <i class="bi bi-capsule-pill me-2"></i>
+      Treatments
+    </a>
+
+    <a href="{% url 'book_treatments' %}" class="btn btn-warning btn-lg">
+      <i class="bi bi-calendar-check-fill me-2"></i>
+      Book Appointment
+    </a>
+    <a href="{% url 'hospital_charges' %}" class="btn btn-primary btn-lg">
+      <i class="bi bi-cash-stack me-2"></i>
+      Hospital Charges
+    </a>
+
+  </div>
+
+  {% endif %}
+  <br />
+
+  <br />
+</div>
+{% endblock %}

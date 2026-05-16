@@ -1,0 +1,80 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top py-3">
+    <div class="container">
+
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav gap-4">
+          {%if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link px-3" href="{% url 'home' %}">Home</a>
+          </li>
+
+          {% if not labtech and not user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link px-3" href="{% url 'profile' %}">Profile</a>
+          </li>
+          {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link px-3" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% if labtech %}
+          <li class="nav-item">
+            <a class="nav-link px-3 text-warning fw-bold">
+              <i class="bi bi-person-circle"></i> {{ user.username }}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link px-3 text-info fw-bold">
+              <i class="bi bi-person-vcard"></i> {{ labtech.emp_id }}
+            </a>
+          </li>
+
+          {% endif %} {% else %}
+          <li class="nav-item">
+            <a class="nav-link px-3" href="{% url 'register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3" href="{% url 'login' %}">Login</a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {{ message }}
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+  {% block content %}
+
+  {% endblock %}
+</body>
+
+</html>

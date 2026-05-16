@@ -1,0 +1,58 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">List of Treatments</h1>
+    </div>
+
+    <div class="row">
+
+        {% for treatment in treatments %}
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100 border-0">
+
+                <div class="card-body">
+
+                    <h5 class="card-title fw-bold">
+                        {{ treatment.treatmentname }}
+                    </h5>
+                
+
+
+
+                    <p class="mb-2">
+                        <strong>Category:</strong>
+                        {{ treatment.Category }}
+                    </p>
+
+                    <p class="mb-2">
+                        <strong>Description:</strong>
+                        {{ treatment.description }}
+                    </p>
+                    <p class="mb-2">
+                        <strong>Doctor:</strong>
+                        {{ treatment.doctor_name.name }}
+                    </p>
+                <a href="{% url 'book_doctors' treatment.id%}" class="stretched-link"></a>
+                </div>
+
+            </div>
+
+        </div>
+        {% empty %}
+        <div class="text-center">
+            <p>No treatments available</p>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+{% endblock %}

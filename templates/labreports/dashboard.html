@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-4">
+  <!-- JUMBOTRON -->
+  <div class="d-flex justify-content-center align-items-center mb-2" style="gap: 100px;">
+
+  <!-- LEFT -->
+  <span class="fw-bold text-primary">
+    <i class="bi bi-person-circle"></i> {{ user.username }}
+  </span>
+
+  <!-- CENTER -->
+  <h3 class="mb-0">
+    List of All Lab Tests
+  </h3>
+
+  <!-- RIGHT -->
+  <span class="fw-bold text-info">
+    <i class="bi bi-person-vcard"></i> {{ labtech.emp_id }}
+  </span>
+
+</div>
+  <br />
+<a href="{% url 'add_lab_test' %}" class="btn btn-success">
+  <i class="bi bi-plus-circle me-2"></i>
+  Add Lab Test
+</a>
+  
+  {% comment %} table {% endcomment %}
+  <div class="card shadow mt-4 p-3">
+    <table class="table table-bordered text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>S.No</th>
+          <th>Doctor Name</th>
+          <th>Patient Name</th>
+          <th>Test Name</th>
+          <th>Price</th>
+          <th>Date & Time</th>
+          <th>Test Result</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for test in tests %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ test.reffered_by }}</td>
+          <td>{{ test.patient_name }}</td>
+          <td>{{ test.lab_test }}</td>
+          <td>{{ test.test_cost }}</td>
+          <td>{{ test.created_at }}</td>
+          <td>{{ test.lab_results }}</td>
+
+          <td>
+            <a href="{% url 'edit_lab_test' test.id %}">
+              <i class="bi bi-pencil-square text-primary"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br />
+<div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="?page=1"><<</a></li>
+        <!-- First -->
+        {% if tests.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ tests.previous_page_number }}">
+          {{ tests.previous_page_number }}
+        </a>
+      </li>
+      {% endif %}
+        <li class="page-item"><a class="page-link" href=?page="{{ tests.number }}">{{ tests.number }}</a></li>
+
+        <!-- Last -->
+        {% if tests.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ tests.next_page_number }}">
+          {{ tests.next_page_number }}
+        </a>
+      </li>
+      {% endif %}
+
+        <li class="page-item">
+          <a class="page-link" href="?page={{ tests.paginator.num_pages }}">>></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+{% endblock %}

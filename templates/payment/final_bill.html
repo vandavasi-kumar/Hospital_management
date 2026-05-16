@@ -1,0 +1,99 @@
+  {% extends 'base.html' %}
+  {% load static %}
+  {% block content %}
+
+
+  <div class="container mt-4">
+
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+      <h2>🏥 Final Bill</h2>
+      <h5>HTK HOSPITAL </h5>
+      <p>Address: Bangalore | Phone: 9876543210</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow p-4 watermark-card">
+
+      <!-- Patient Details -->
+      <h5 class="mb-3">Patient Details</h5>
+      <table class="table table-bordered">
+        <tr>
+          <th>Patient Name</th>
+          <td>{{ bill.patient_name }}</td>
+        </tr>
+        <tr>
+          <th>Doctor</th>
+          <td>{{ bill.doctor }}</td>
+        </tr>
+        <tr>
+          <th>Admission Date</th>
+          <td>{{ bill.admission_date }}</td>
+        </tr>
+        <tr>
+          <th>Discharge Date</th>
+          <td>{{ bill.discharge_date }}</td>
+        </tr>
+        <tr>
+          <th>Total Days</th>
+          <td>{{ bill.total_days }}</td>
+        </tr>
+        <tr>
+          <th>Room Type</th>
+          <td>{{ bill.room_type }}</td>
+        </tr>
+      </table>
+
+      <!-- Charges -->
+      <h5 class="mt-4 mb-3">Charges Breakdown</h5>
+      <table class="table table-bordered text-center">
+        <thead class="table-primary">
+          <tr>
+            <th>Type</th>
+            <th>Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Room Charges</td>
+            <td>{{ bill.room_charges }}</td>
+          </tr>
+          <tr>
+            <td>Doctor Charges</td>
+            <td>{{ bill.doctor_charges }}</td>
+          </tr>
+          <tr>
+            <td>Nursing Charges</td>
+            <td>{{ bill.nursing_charges }}</td>
+          </tr>
+          <tr>
+            <td>Food Charges</td>
+            <td>{{ bill.food_charges }}</td>
+          </tr>
+          <tr>
+            <td>Medicine Charges</td>
+            <td>{{ bill.medicine_charges }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TOTAL -->
+      <div class="text-end mt-3">
+        <h4>Total Bill: ₹{{ bill.total_bill }}</h4>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="text-center mt-4">
+        <button onclick="window.print()" class="btn btn-primary">
+          🖨 Print Bill
+        </button>
+        <a href="{% url 'discharge' %}" class="btn btn-success">
+          ➕ New Discharge
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  {% endblock %}
